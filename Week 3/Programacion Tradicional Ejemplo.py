@@ -23,4 +23,3 @@ def main():
 
 # Llamamos a la función principal para iniciar el programa
 main()
-
