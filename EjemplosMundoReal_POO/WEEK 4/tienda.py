@@ -1,72 +1,74 @@
-# Creamos una clase para representar un Producto
+# ---------------------------------------------------------------
+# Finalidad del programa:
+# Este programa simula una tienda sencilla del mundo real usando
+# Programación Orientada a Objetos (POO). Se crean clases para
+# representar productos y una tienda. Sirve para aprender cómo
+# funcionan los objetos, atributos y métodos en Python.
+# ---------------------------------------------------------------
+
+# Creamos la clase Producto
 class Producto:
+    # Método constructor: se ejecuta al crear un objeto Producto
     def __init__(self, nombre, precio, stock):
-        # Estos son los atributos de cada producto
-        self.nombre = nombre      # Nombre del producto
-        self.precio = precio      # Precio del producto
-        self.stock = stock        # Cantidad disponible del producto
+        self.nombre = nombre     # Nombre del producto
+        self.precio = precio     # Precio del producto
+        self.stock = stock       # Cantidad disponible (inventario)
 
     # Método para mostrar información del producto
-    def mostrar_info(self):
+    def mostrar(self):
         print(f"{self.nombre} - Precio: ${self.precio} - Stock: {self.stock}")
 
-    # Método para reducir el stock cuando se vende
-    def reducir_stock(self, cantidad):
-        # Si hay suficiente en stock, se descuenta
-        if cantidad <= self.stock:
-            self.stock -= cantidad
-            return True
-        else:
-            # Si no hay suficiente, no se puede vender
-            return False
-
-# Creamos otra clase para representar la Tienda
+# Creamos la clase Tienda
 class Tienda:
+    # Método constructor: recibe el nombre de la tienda
     def __init__(self, nombre):
         self.nombre = nombre      # Nombre de la tienda
-        self.productos = []       # Lista vacía donde se guardarán los productos
+        self.productos = []       # Lista vacía para guardar productos
 
     # Método para agregar productos a la tienda
     def agregar_producto(self, producto):
-        self.productos.append(producto)
+        self.productos.append(producto)  # Añade el producto a la lista
 
     # Método para mostrar todos los productos disponibles
     def mostrar_productos(self):
-        print(f"\nProductos disponibles en la tienda {self.nombre}:")
+        print(f"Productos disponibles en la tienda {self.nombre}:")
         for producto in self.productos:
-            producto.mostrar_info()  # Llamamos al método mostrar_info de cada producto
+            producto.mostrar()    # Llama al método mostrar() de cada producto
+        print()
 
     # Método para vender un producto
     def vender_producto(self, nombre_producto, cantidad):
-        # Buscamos el producto en la lista de productos
         for producto in self.productos:
-            if producto.nombre.lower() == nombre_producto.lower():  # Comparamos sin importar mayúsculas
-                if producto.reducir_stock(cantidad):
+            if producto.nombre == nombre_producto:
+                if producto.stock >= cantidad:
+                    producto.stock -= cantidad   # Resta el stock
                     total = producto.precio * cantidad
-                    print(f"\nCompra exitosa. Total a pagar: ${total}")
+                    print(f"\nCompra exitosa. Total a pagar: ${total}\n")
                 else:
-                    print("\nNo hay suficiente stock para esta cantidad.")
-                return  # Salimos del método después de encontrar el producto
-        print("\nProducto no encontrado en la tienda.")
+                    print("\nNo hay suficiente stock disponible.\n")
+                return
+        print("\nProducto no encontrado.\n")
 
-# Aquí empieza el código principal que se ejecuta
-if __name__ == "__main__":
-    # Creamos una tienda llamada "Mi Tiendita"
-    mi_tienda = Tienda("Mi Tiendita")
+# -----------------------------
+# Parte principal del programa
+# -----------------------------
 
-    # Creamos algunos productos con nombre, precio y stock
-    producto1 = Producto("Manzana", 0.50, 20)
-    producto2 = Producto("Pan", 0.30, 15)
+# Creamos un objeto Tienda
+mi_tienda = Tienda("Mi Tiendita")
 
-    # Agregamos los productos a la tienda
-    mi_tienda.agregar_producto(producto1)
-    mi_tienda.agregar_producto(producto2)
+# Creamos productos usando la clase Producto
+producto1 = Producto("Manzana", 0.5, 20)
+producto2 = Producto("Pan", 0.3, 15)
 
-    # Mostramos los productos disponibles antes de la compra
-    mi_tienda.mostrar_productos()
+# Agregamos productos a la tienda
+mi_tienda.agregar_producto(producto1)
+mi_tienda.agregar_producto(producto2)
 
-    # Simulamos una compra: queremos comprar 3 manzanas
-    mi_tienda.vender_producto("Manzana", 3)
+# Mostramos los productos antes de la compra
+mi_tienda.mostrar_productos()
 
-    # Mostramos los productos después de la compra para ver el nuevo stock
-    mi_tienda.mostrar_productos()
+# Simulamos una compra (3 manzanas)
+mi_tienda.vender_producto("Manzana", 3)
+
+# Mostramos los productos después de la compra
+mi_tienda.mostrar_productos()
