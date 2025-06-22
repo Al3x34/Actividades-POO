@@ -1,0 +1,2 @@
+Esta carpeta corresponde a la tarea donde se deben desarrollar uno o más programas en Python aplicando los principios de Programación Orientada a Objetos (POO).  
+Aquí se incluirán ejemplos basados en situaciones del mundo real, los cuales permiten practicar y demostrar el uso de clases, objetos, atributos y métodos.
